@@ -1,0 +1,27 @@
+{
+  "name": "clean-text",
+  "version": "0.0.1",
+  "description": "Utilería que permite detectar la existencia de emails o teléfonos en un texto y limpiarlos",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ORODii/clean-text.git"
+  },
+  "author": "Andrés Orozco <orodi.20@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ORODii/clean-text/issues"
+  },
+  "homepage": "https://github.com/ORODii/clean-text#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-external-helpers": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^8.0.0-beta.2"
+  }
+}

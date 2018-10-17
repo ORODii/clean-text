@@ -1,0 +1,11 @@
+{
+    "predef": [
+        "document",
+        "window",
+        "module",
+        "define"
+    ],
+    "validthis": true,
+    "esversion": 6,
+    "node": true
+}
