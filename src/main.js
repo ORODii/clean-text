@@ -1,17 +1,60 @@
-class CleanText {
-  constructor() {
-    this.setup();
+import { findNumbers } from 'libphonenumber-js';
+
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()[\]\\]/g, '\\$&');
+}
+
+export default class CleanText {
+  constructor(text) {
+    this.emailReg = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/g;
+
+    this.setText(text);
   }
 
-  setup() {
-    this.emailReg = new RegExp('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/', 'g');
+  setText(text) {
+    if (typeof text == 'string') {
+      this.text = text;
+    } else {
+      this.text = '';
+    }
 
-    // this.phoneReg = new RegExp('/(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/', 'g');
+    return this;
   }
 
-  checkEmailExist(text) {
-    return this.emailReg.test(text);
+  emailExist() {
+    const match = this.text.match(this.emailReg);
+
+    return match != null && match.length > 0;
+  }
+
+  phoneExist() {
+    const numbers = typeof this.text == 'string' ? findNumbers(this.text, 'MX', { v2: true }) : [];
+
+    return numbers.length > 0;
+  }
+
+  clearEmail() {
+    this.setText(this.text.replace(this.emailReg, ''));
+
+    return this;
+  }
+
+  clearPhone() {
+    const numbers = typeof this.text == 'string' ? findNumbers(this.text, 'MX', { v2: true }) : [];
+    let patron = [];
+    let numbersToReplace = '';
+
+    if (numbers.length > 0) {
+      for (let number of numbers) {
+        patron.push(this.text.substring(number.startsAt, number.endsAt));
+      }
+
+      numbersToReplace = new RegExp(escapeRegExp(patron.join('|')), 'g');
+    }
+
+    this.setText(this.text.replace(numbersToReplace, ''));
+
+    return this;
   }
 }
 
-module.exports = CleanText;

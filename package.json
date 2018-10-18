@@ -13,7 +13,9 @@
     "url": "https://github.com/ORODii/clean-text/issues"
   },
   "homepage": "https://github.com/ORODii/clean-text#readme",
-  "dependencies": {},
+  "dependencies": {
+    "libphonenumber-js": "^1.6.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",

@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 const banner = `clean-text.js v${pkg.version}
 https://github.com/ORODii/clean-text
-Licensed ISC © Andrés Orozco`;
+Licensed ISC © Andrés Orozco <orodi.20@gmail.com>`;
 
 module.exports = (env, options) => {
   return {
@@ -13,7 +13,8 @@ module.exports = (env, options) => {
       filename: options.mode === 'development' ? 'clean-text.js' : 'clean-text.min.js',
         path: path.resolve(__dirname, 'dist'),
         library: 'CleanText',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
+        libraryExport: 'default'
     },
     module: {
       rules: [
